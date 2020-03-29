@@ -1,0 +1,23 @@
+{
+	"compilerOptions": {
+		"target": "es2017",
+		"module": "commonjs",
+		"jsx": "react",
+		"moduleResolution": "node",
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strictNullChecks": true,
+		"strictFunctionTypes": true,
+		"noImplicitThis": true,
+		"noImplicitAny": false,
+		"noUnusedLocals": false,
+		"noUnusedParameters": false,
+		"removeComments": true,
+		"sourceMap": true,
+		"allowJs": true,
+		"outDir": "build",
+		"lib": ["es2019", "esnext.asynciterable", "dom"]
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
+}
