@@ -1,23 +1,24 @@
+import * as React from "react"
 import "./App.css"
-import { parseRoute, formatRoute } from "../shared/routeHelpers"
 import { Router } from "./components/Router"
 import { Redirect } from "./components/Redirect"
 import { Welcome } from "./components/Welcome"
+import { Friend } from "./components/Friend"
 
 export function App() {
 	return (
-		<Router parseRoute={parseRoute} formatRoute={formatRoute}>
-			{({ route, navigate }) => {
+		<Router>
+			{({ route }) => {
 				if (route.type === "root") {
-					return <Redirect navigate={navigate} to={{ type: "welcome" }} />
+					return <Redirect to={{ type: "welcome" }} />
 				}
 
 				if (route.type === "welcome") {
-					return <Welcome navigate={navigate} />
+					return <Welcome />
 				}
 
 				if (route.type === "friend") {
-					return <div>friend: {route.name}</div>
+					return <Friend route={route} />
 				}
 
 				if (route.type === "unknown") {

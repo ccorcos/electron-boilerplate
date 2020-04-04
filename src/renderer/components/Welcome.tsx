@@ -1,31 +1,35 @@
 import * as React from "react"
-import { Page, Heading, Button } from "./UI"
-import { Route } from "../../shared/routeHelpers"
+import { Page, Heading, Button, HStack } from "./UI"
+import { useRouter } from "./Router"
 
-interface WelcomeProps {
-	navigate: (route: Route) => void
-}
+export function Welcome() {
+	const { navigate } = useRouter()
 
-export class Welcome extends React.PureComponent<WelcomeProps> {
-	render() {
-		return (
-			<Page>
-				<Heading>Welcome</Heading>
-				<Button onClick={this.handleNavigateChet}>Chet</Button>
-				{" • "}
-				<Button onClick={this.handleNavigateAndrew}>Andrew</Button>
-				{" • "}
-				<Button onClick={this.handleNavigateMeghan}>Meghan</Button>
-			</Page>
-		)
-	}
+	const handleNavigateChet = React.useCallback(
+		() => navigate({ type: "friend", name: "Chet" }),
+		[navigate]
+	)
 
-	private handleNavigateChet = () =>
-		this.props.navigate({ type: "friend", name: "Chet" })
+	const handleNavigateAndrew = React.useCallback(
+		() => navigate({ type: "friend", name: "Andrew" }),
+		[navigate]
+	)
 
-	private handleNavigateAndrew = () =>
-		this.props.navigate({ type: "friend", name: "Andrew" })
+	const handleNavigateMeghan = React.useCallback(
+		() => navigate({ type: "friend", name: "Meghan" }),
+		[navigate]
+	)
 
-	private handleNavigateMeghan = () =>
-		this.props.navigate({ type: "friend", name: "Meghan" })
+	return (
+		<Page>
+			<Heading>Welcome</Heading>
+			<HStack gap={4}>
+				<Button onClick={handleNavigateChet}>Chet</Button>
+				{"•"}
+				<Button onClick={handleNavigateAndrew}>Andrew</Button>
+				{"•"}
+				<Button onClick={handleNavigateMeghan}>Meghan</Button>
+			</HStack>
+		</Page>
+	)
 }

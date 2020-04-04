@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc && webpack -p",
     "watch": "webpack -w",
-    "start": "tsc && electron build/main/main.js"
+    "start": "tsc -p tsconfig.main.json && electron build/main/main.js"
   },
   "repository": "https://github.com/ccorcos/electron-boilerplate",
   "author": "",
@@ -17,14 +17,16 @@
     "url": "^0.11.0"
   },
   "devDependencies": {
-    "@types/node": "^12.12.32",
     "@types/lodash": "^4.14.149",
+    "@types/node": "^12.12.32",
     "@types/react": "^16.9.27",
     "@types/react-dom": "^16.9.5",
     "awesome-typescript-loader": "^5.2.1",
+    "css-loader": "^3.4.2",
     "electron": "^8.2.0",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.0.3",
+    "mini-css-extract-plugin": "^0.9.0",
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3",
     "webpack": "^4.42.1",

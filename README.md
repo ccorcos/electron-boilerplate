@@ -11,8 +11,7 @@ npm start
 
 ## TODO
 
-- router -> useContext + react hooks.
 - routeHelpers tests
-- router back
+- main process reboot
 - sqlite
 - deploying w/ autoupdater

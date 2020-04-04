@@ -1,48 +1,61 @@
 import * as React from "react"
+import { Route, parseRoute, formatRoute } from "../../shared/routeHelpers"
+
+interface RouterContext {
+	navigate: (route: Route) => void
+	back: () => void
+}
+
+const RouterContext = React.createContext<RouterContext>({
+	navigate: () => {},
+	back: () => {},
+})
+
+export const useRouter = () => React.useContext(RouterContext)
 
 type HistoryState = {
 	scrollTop: number
 }
 
-type RouterState<Route> = {
-	historyState: HistoryState | undefined
-	route: Route
-}
-
-export interface RouterFunctions<Route> {
+type RouterState = {
 	route: Route
 	historyState: HistoryState | undefined
-	navigate: (route: Route) => void
 }
 
-interface RouterProps<Route> {
-	parseRoute: (url: string) => Route
-	formatRoute: (route: Route) => string
-	children: (props: RouterFunctions<Route>) => React.ReactNode
-}
-
-export class Router<Route> extends React.PureComponent<RouterProps<Route>> {
-	state: RouterState<Route>
-
-	constructor(props: RouterProps<Route>) {
-		super(props)
+export function Router(props: {
+	children: (routerState: RouterState) => React.ReactNode
+}) {
+	const initialState = React.useMemo(() => {
 		const historyState: HistoryState | undefined = window.history.state
-		const route = props.parseRoute(window.location.href)
-		this.state = { historyState, route }
-		window.onpopstate = (event) => {
+		const route = parseRoute(window.location.href)
+		return { route, historyState }
+	}, [])
+
+	const [state, setState] = React.useState<RouterState>(initialState)
+
+	React.useEffect(() => {
+		window.onpopstate = (event: PopStateEvent) => {
 			const url = window.location.href
-			const route = props.parseRoute(url)
+			const route = parseRoute(url)
 			const historyState: HistoryState | undefined = event.state
-			this.setState({ historyState, route })
+			setState({ historyState, route })
 		}
-	}
+	}, [setState])
 
-	render() {
-		return this.props.children({ ...this.state, navigate: this.navigate })
-	}
+	const navigate = React.useCallback(
+		(route: Route, historyState?: HistoryState) => {
+			window.history.pushState(historyState, "", formatRoute(route))
+			setState({ historyState, route })
+		},
+		[setState]
+	)
 
-	navigate = (route: Route, historyState?: HistoryState) => {
-		window.history.pushState(historyState, "", this.props.formatRoute(route))
-		this.setState({ historyState, route })
-	}
+	const back = React.useCallback(() => {
+		window.history.back()
+	}, [])
+	return (
+		<RouterContext.Provider value={{ navigate, back }}>
+			{props.children(state)}
+		</RouterContext.Provider>
+	)
 }

@@ -1,17 +1,9 @@
 import * as React from "react"
 import { Route } from "../../shared/routeHelpers"
+import { useRouter } from "./Router"
 
-interface RedirectProps {
-	navigate(route: Route): void
-	to: Route
-}
-
-export class Redirect extends React.PureComponent<RedirectProps> {
-	componentDidMount() {
-		this.props.navigate(this.props.to)
-	}
-
-	render() {
-		return null
-	}
+export function Redirect(props: { to: Route }) {
+	const { navigate } = useRouter()
+	React.useEffect(() => navigate(props.to), [props.to])
+	return null
 }
