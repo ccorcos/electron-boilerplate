@@ -9,6 +9,10 @@ npm run watch
 npm start
 ```
 
-## Deploying
+## TODO
 
-TODO
+- router -> useContext + react hooks.
+- routeHelpers tests
+- router back
+- sqlite
+- deploying w/ autoupdater

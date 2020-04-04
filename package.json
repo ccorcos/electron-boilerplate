@@ -13,7 +13,8 @@
   "dependencies": {
     "lodash": "^4.17.15",
     "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "@types/node": "^12.12.32",
