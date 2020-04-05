@@ -13,6 +13,7 @@ import { RendererToMainApi } from "../shared/types"
 createMainIpcServer<RendererToMainApi>({
 	createTodo: sqlite.createTodo,
 	updateTodo: sqlite.updateTodo,
+	getTodo: sqlite.getTodo,
 	getAllTodos: sqlite.getAllTodos,
 	getIncompleteTodos: sqlite.getIncompleteTodos,
 })

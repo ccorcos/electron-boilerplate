@@ -1,5 +1,5 @@
 import * as React from "react"
-import { Page, Heading, Button, Box, Input } from "./UI"
+import { Page, Heading, Button, Box, Input, HStack } from "./UI"
 import { useRouter } from "./Router"
 import { TodoValue } from "../../shared/types"
 import { api } from "../api"
@@ -7,19 +7,11 @@ import { useAync } from "../hooks/useAsync"
 import { randomId } from "../../shared/randomId"
 
 export function TodoList() {
-	const { back } = useRouter()
-
-	const [showCompleted, setShowCompleted] = React.useState(true)
-
 	const [refetch, setRefetch] = React.useState(0)
 
 	const request = useAync(async () => {
-		if (showCompleted) {
-			return api.getAllTodos()
-		} else {
-			return api.getIncompleteTodos()
-		}
-	}, [showCompleted, refetch])
+		return api.getAllTodos()
+	}, [refetch])
 
 	const showSpinner = request.fetching && request.spinner
 
@@ -61,11 +53,22 @@ export function TodoItem(props: TodoValue) {
 		if (document.activeElement instanceof HTMLElement) {
 			document.activeElement.blur()
 		}
-	}, [props.id, text])
+	}, [props, text])
+
+	const { navigate } = useRouter()
+	const handleOpen = React.useCallback(() => {
+		navigate({ type: "todo", id: props.id })
+	}, [props.id])
 
 	return (
-		<Box>
-			<Input value={text} onChange={handleChange} onEnter={handleEnter}></Input>
-		</Box>
+		<HStack>
+			<Input
+				value={text}
+				onChange={handleChange}
+				onEnter={handleEnter}
+				stretch
+			/>
+			<Button onClick={handleOpen}>open</Button>
+		</HStack>
 	)
 }

@@ -11,7 +11,6 @@ npm start
 
 ## TODO
 
-- sqlite
 - system menu
 - deploying w/ autoupdater
 

@@ -9,6 +9,7 @@ export interface TodoValue {
 export type RendererToMainApi = {
 	createTodo: (value: TodoValue) => void
 	updateTodo: (value: TodoValue) => void
+	getTodo: (value: { id: string }) => TodoValue
 	getAllTodos: () => Array<TodoValue>
 	getIncompleteTodos: () => Array<TodoValue>
 }

@@ -30,14 +30,14 @@ const statements: Array<string> = [
 	`,
 ]
 for (const statement of statements) {
-	db.prepare(statement.trim()).run()
+	db.prepare(statement).run()
 }
 
 const createTodoQuery = db.prepare(
 	`
 	INSERT INTO todos (id, title, completed, created_at, description)
 	VALUES ($id, $title, $completed, $created_at, $description)
-`.trim()
+`
 )
 export function createTodo(value: TodoValue) {
 	createTodoQuery.run(value)
@@ -50,17 +50,27 @@ const updateTodoQuery = db.prepare(
 			completed=$completed,
 			description=$description
 	WHERE id=$id
-`.trim()
+`
 )
 export function updateTodo(value: TodoValue) {
 	updateTodoQuery.run(value)
+}
+
+const getTodoQuery = db.prepare(
+	`
+	SELECT * from todos
+	WHERE id=$id
+`
+)
+export function getTodo(value: { id: string }) {
+	return getTodoQuery.get(value)
 }
 
 const getAllTodosQuery = db.prepare(
 	`
 	SELECT * FROM todos
 	ORDER BY created_at DESC
-`.trim()
+`
 )
 export function getAllTodos() {
 	return getAllTodosQuery.all() as Array<TodoValue>
@@ -71,7 +81,7 @@ const getIncompleteTodosQuery = db.prepare(
 	SELECT * FROM todos
 	WHERE completed = false
 	ORDER BY created_at DESC
-`.trim()
+`
 )
 export function getIncompleteTodos() {
 	return getIncompleteTodosQuery.all() as Array<TodoValue>
