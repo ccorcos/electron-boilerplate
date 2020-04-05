@@ -12,6 +12,7 @@ import { RendererToMainApi } from "../shared/types"
 // Create the IPC apis.
 createMainIpcServer<RendererToMainApi>({
 	createTodo: sqlite.createTodo,
+	updateTodo: sqlite.updateTodo,
 	getAllTodos: sqlite.getAllTodos,
 	getIncompleteTodos: sqlite.getIncompleteTodos,
 })
@@ -21,9 +22,9 @@ function createWindow() {
 	const mainWindow = new BrowserWindow({
 		width: 800,
 		height: 600,
-		// webPreferences: {
-		// 	preload: path.join(__dirname, "preload.js"),
-		// },
+		webPreferences: {
+			preload: path.join(__dirname, "preload.js"),
+		},
 	})
 
 	// and load the index.html of the app.

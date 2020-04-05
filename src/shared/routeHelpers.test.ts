@@ -5,8 +5,7 @@ const examplesMap: {
 	[type in Route["type"]]: Array<Extract<Route, { type: type }>>
 } = {
 	root: [{ type: "root" }],
-	welcome: [{ type: "welcome" }],
-	friend: [{ type: "friend", name: "chet" }, { type: "friend" }],
+	todo: [{ type: "todo", id: "1234" }],
 	unknown: [{ type: "unknown", url: "www.chetcorcos.com#asdf" }],
 }
 

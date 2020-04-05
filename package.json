@@ -25,7 +25,8 @@
     "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "url": "^0.11.0"
+    "url": "^0.11.0",
+    "uuid": "^7.0.3"
   },
   "devDependencies": {
     "@types/better-sqlite3": "^5.4.0",
@@ -35,6 +36,7 @@
     "@types/node": "^12.12.32",
     "@types/react": "^16.9.27",
     "@types/react-dom": "^16.9.5",
+    "@types/uuid": "^7.0.2",
     "awesome-typescript-loader": "^5.2.1",
     "css-loader": "^3.4.2",
     "electron": "^8.2.0",

@@ -4,7 +4,7 @@ type IPCFunctions = { [eventName: string]: (args: any) => any }
 
 type AsyncIPCFunctions<T extends IPCFunctions> = {
 	[eventName in keyof T]: (
-		arg: Parameters<T[eventName]>[0]
+		...args: Parameters<T[eventName]>
 	) => Promise<ReturnType<T[eventName]>>
 }
 

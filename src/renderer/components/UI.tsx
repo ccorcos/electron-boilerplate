@@ -178,7 +178,7 @@ export function PlainButton(props: PlainButtonProps) {
 }
 
 interface InputProps extends BoxProps {
-	label: React.ReactNode
+	label?: React.ReactNode
 	autoFocus?: boolean
 	value?: string
 	onChange?: React.ChangeEventHandler<HTMLInputElement>
@@ -188,7 +188,7 @@ export class Input extends React.PureComponent<InputProps> {
 	render() {
 		return (
 			<VStack {...this.props} element="label">
-				<Box>{this.props.label}</Box>
+				{this.props.label && <Box>{this.props.label}</Box>}
 				<input
 					autoFocus={this.props.autoFocus}
 					value={this.props.value}
