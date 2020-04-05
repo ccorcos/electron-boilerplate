@@ -12,4 +12,27 @@ npm start
 ## TODO
 
 - sqlite
+- system menu
 - deploying w/ autoupdater
+
+
+https://github.com/sindresorhus/awesome-electron
+
+https://github.com/sindresorhus/electron-better-ipc
+https://github.com/electron-userland/electron-builder
+
+http://photonkit.com/components/
+http://reactdesktop.js.org/
+
+for rich text editing
+https://github.com/parro-it/electron-input-menu
+
+https://github.com/kapetan/titlebar
+https://github.com/rhysd/electron-about-window
+
+
+https://github.com/parro-it/electron-detach
+
+
+https://github.com/mawie81/electron-window-state
+https://github.com/parro-it/electron-localshortcut

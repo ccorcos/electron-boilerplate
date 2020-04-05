@@ -5,15 +5,25 @@ try {
 
 import { app, BrowserWindow } from "electron"
 import * as path from "path"
+import * as sqlite from "./sqlite"
+import { createMainIpcServer } from "../shared/ipc"
+import { RendererToMainApi } from "../shared/types"
+
+// Create the IPC apis.
+createMainIpcServer<RendererToMainApi>({
+	createTodo: sqlite.createTodo,
+	getAllTodos: sqlite.getAllTodos,
+	getIncompleteTodos: sqlite.getIncompleteTodos,
+})
 
 function createWindow() {
 	// Create the browser window.
 	const mainWindow = new BrowserWindow({
 		width: 800,
 		height: 600,
-		webPreferences: {
-			preload: path.join(__dirname, "preload.js"),
-		},
+		// webPreferences: {
+		// 	preload: path.join(__dirname, "preload.js"),
+		// },
 	})
 
 	// and load the index.html of the app.

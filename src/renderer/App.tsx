@@ -1,24 +1,19 @@
 import * as React from "react"
 import "./App.css"
 import { Router } from "./components/Router"
-import { Redirect } from "./components/Redirect"
-import { Welcome } from "./components/Welcome"
-import { Friend } from "./components/Friend"
+import { TodoList } from "./components/TodoList"
+import { TodoPage } from "./components/TodoPage"
 
 export function App() {
 	return (
 		<Router>
 			{({ route }) => {
 				if (route.type === "root") {
-					return <Redirect to={{ type: "welcome" }} />
+					return <TodoList />
 				}
 
-				if (route.type === "welcome") {
-					return <Welcome />
-				}
-
-				if (route.type === "friend") {
-					return <Friend route={route} />
+				if (route.type === "todo") {
+					return <TodoPage route={route} />
 				}
 
 				if (route.type === "unknown") {

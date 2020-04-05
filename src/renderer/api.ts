@@ -1,3 +1,4 @@
-import { PreloadApi } from "../main/preload"
+import { createRendererIpcClient } from "../shared/ipc"
+import { RendererToMainApi } from "../shared/types"
 
-export const api: PreloadApi = window["preloadApi"]
+export const api = createRendererIpcClient<RendererToMainApi>()

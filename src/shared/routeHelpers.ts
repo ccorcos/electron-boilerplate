@@ -2,11 +2,10 @@ import { parse, format } from "url"
 import { removeUndefinedValues } from "./removeUndefinedValues"
 
 export type RootRoute = { type: "root" }
-export type WelcomeRoute = { type: "welcome" }
-export type FriendRoute = { type: "friend"; name?: string }
+export type TodoRoute = { type: "todo"; id: string }
 export type UnknownRoute = { type: "unknown"; url: string }
 
-export type Route = RootRoute | WelcomeRoute | FriendRoute | UnknownRoute
+export type Route = RootRoute | TodoRoute | UnknownRoute
 
 export function parseRoute(url: string): Route {
 	const parsed = parse(url, true)
@@ -14,16 +13,10 @@ export function parseRoute(url: string): Route {
 		return { type: "root" }
 	}
 
-	if (parsed.hash === "#welcome") {
-		return { type: "welcome" }
-	}
-
-	if (parsed.hash === "#friend") {
-		const route: FriendRoute = { type: "friend" }
-		if (parsed.query.name && typeof parsed.query.name === "string") {
-			route.name = parsed.query.name
+	if (parsed.hash === "#todo") {
+		if (parsed.query.id && typeof parsed.query.id === "string") {
+			return { type: "todo", id: parsed.query.id }
 		}
-		return route
 	}
 
 	return { type: "unknown", url }
@@ -40,11 +33,8 @@ export function formatRoute(route: Route) {
 	if (route.type === "root") {
 		return "#"
 	}
-	if (route.type === "welcome") {
-		return "#welcome"
-	}
-	if (route.type === "friend") {
-		return makeUrl("#friend", { name: route.name })
+	if (route.type === "todo") {
+		return makeUrl("#todo", { id: route.id })
 	}
 	return route.url
 }
