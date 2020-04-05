@@ -1,4 +1,5 @@
-import { parse } from "url"
+import { parse, format } from "url"
+import { removeUndefinedValues } from "./removeUndefinedValues"
 
 export type RootRoute = { type: "root" }
 export type WelcomeRoute = { type: "welcome" }
@@ -17,12 +18,22 @@ export function parseRoute(url: string): Route {
 		return { type: "welcome" }
 	}
 
-	if (parsed.hash.startsWith("#friend?")) {
-		const name = parsed.query.name as string | undefined
-		return { type: "friend", name }
+	if (parsed.hash === "#friend") {
+		const route: FriendRoute = { type: "friend" }
+		if (parsed.query.name && typeof parsed.query.name === "string") {
+			route.name = parsed.query.name
+		}
+		return route
 	}
 
 	return { type: "unknown", url }
+}
+
+function makeUrl(hash: string, query: { [key: string]: string | undefined }) {
+	const parsed = parse("", true)
+	parsed.hash = hash
+	parsed.query = removeUndefinedValues(query) as any
+	return format(parsed)
 }
 
 export function formatRoute(route: Route) {
@@ -33,7 +44,7 @@ export function formatRoute(route: Route) {
 		return "#welcome"
 	}
 	if (route.type === "friend") {
-		return "#friend?name=" + route.name
+		return makeUrl("#friend", { name: route.name })
 	}
 	return route.url
 }

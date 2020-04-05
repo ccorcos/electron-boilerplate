@@ -1,4 +1,5 @@
 import * as React from "react"
+import { removeUndefinedValues } from "../../shared/removeUndefinedValues"
 
 interface VStackProps extends BoxProps {
 	align?: "center" | "left" | "right"
@@ -146,15 +147,6 @@ export function Box(props: BoxProps) {
 			{props.children}
 		</Elm>
 	)
-}
-
-function removeUndefinedValues(obj: object) {
-	for (const key in obj) {
-		if (obj[key] === undefined) {
-			delete obj[key]
-		}
-	}
-	return obj
 }
 
 interface HeadingProps {
