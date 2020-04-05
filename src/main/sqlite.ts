@@ -16,7 +16,6 @@ const statements: Array<string> = [
   CREATE TABLE IF NOT EXISTS todos (
     id TEXT PRIMARY KEY,
     title TEXT NOT NULL,
-    completed BOOLEAN NOT NULL,
     created_at TEXT NOT NULL,
     description TEXT
   )
@@ -31,8 +30,8 @@ for (const statement of statements) {
 
 const createTodoQuery = db.prepare(
 	`
-	INSERT INTO todos (id, title, completed, created_at, description)
-	VALUES ($id, $title, $completed, $created_at, $description)
+	INSERT INTO todos (id, title, created_at, description)
+	VALUES ($id, $title, $created_at, $description)
 `
 )
 export function createTodo(value: TodoValue) {
@@ -43,7 +42,6 @@ const updateTodoQuery = db.prepare(
 	`
 	UPDATE todos
 	SET title=$title,
-			completed=$completed,
 			description=$description
 	WHERE id=$id
 `
