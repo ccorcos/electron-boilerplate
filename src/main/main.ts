@@ -15,7 +15,6 @@ createMainIpcServer<RendererToMainApi>({
 	updateTodo: sqlite.updateTodo,
 	getTodo: sqlite.getTodo,
 	getAllTodos: sqlite.getAllTodos,
-	getIncompleteTodos: sqlite.getIncompleteTodos,
 })
 
 function createWindow() {

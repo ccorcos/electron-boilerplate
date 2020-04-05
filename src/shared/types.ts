@@ -11,5 +11,4 @@ export type RendererToMainApi = {
 	updateTodo: (value: TodoValue) => void
 	getTodo: (value: { id: string }) => TodoValue
 	getAllTodos: () => Array<TodoValue>
-	getIncompleteTodos: () => Array<TodoValue>
 }

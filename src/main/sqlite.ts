@@ -24,10 +24,6 @@ const statements: Array<string> = [
 	`
 	CREATE INDEX IF NOT EXISTS todos_index_all ON todos (created_at DESC, id)
 	`,
-	`
-	CREATE INDEX IF NOT EXISTS todos_index_incomplete ON todos (created_at DESC, id)
-	WHERE completed = false
-	`,
 ]
 for (const statement of statements) {
 	db.prepare(statement).run()
@@ -74,15 +70,4 @@ const getAllTodosQuery = db.prepare(
 )
 export function getAllTodos() {
 	return getAllTodosQuery.all() as Array<TodoValue>
-}
-
-const getIncompleteTodosQuery = db.prepare(
-	`
-	SELECT * FROM todos
-	WHERE completed = false
-	ORDER BY created_at DESC
-`
-)
-export function getIncompleteTodos() {
-	return getIncompleteTodosQuery.all() as Array<TodoValue>
 }
