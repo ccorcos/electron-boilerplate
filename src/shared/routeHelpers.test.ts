@@ -1,4 +1,5 @@
-import { describe, it, assert } from "../test/mocha"
+import { describe, it } from "mocha"
+import * as assert from "assert"
 import { Route, formatRoute, parseRoute } from "./routeHelpers"
 
 const examplesMap: {
