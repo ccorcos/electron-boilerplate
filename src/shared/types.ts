@@ -2,7 +2,6 @@ export interface TodoValue {
 	id: string
 	title: string
 	created_at: string
-	completed: 1 | 0
 	description: string
 }
 

@@ -19,7 +19,6 @@ export function TodoList() {
 		await api.createTodo({
 			id: randomId(),
 			title: "",
-			completed: 0,
 			created_at: new Date().toISOString(),
 			description: "",
 		})

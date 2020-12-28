@@ -1,4 +1,4 @@
-import ipc from "electron-better-ipc"
+import { ipcMain, ipcRenderer } from "electron"
 
 type IPCFunctions = { [eventName: string]: (args: any) => any }
 
@@ -10,8 +10,14 @@ type AsyncIPCFunctions<T extends IPCFunctions> = {
 
 export function createMainIpcServer<T extends IPCFunctions>(events: T) {
 	for (const [eventName, fn] of Object.entries(events)) {
-		ipc.ipcMain.answerRenderer(eventName, (arg) => {
-			return fn(arg)
+		ipcMain.handle(eventName, async (event, arg) => {
+			try {
+				const result = await fn(arg)
+				return { result }
+			} catch (error) {
+				console.error(error)
+				return { error: { message: error.message, stack: error.stack } }
+			}
 		})
 	}
 }
@@ -24,7 +30,14 @@ export function createRendererIpcClient<
 		{
 			get: function (obj, prop) {
 				if (typeof prop === "string") {
-					return async (arg) => ipc.ipcRenderer.callMain(prop, arg)
+					return async (arg) => {
+						const response: any = await ipcRenderer.invoke(prop, arg)
+						if (response.error) {
+							throw response.error
+						} else {
+							return response.result
+						}
+					}
 				}
 			},
 		}

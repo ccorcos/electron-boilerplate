@@ -14,7 +14,7 @@ const config: Configuration = {
 			{
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
-				use: [{ loader: "awesome-typescript-loader" }],
+				use: [{ loader: "ts-loader" }],
 			},
 			{
 				test: /\.css$/i,

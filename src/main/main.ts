@@ -1,8 +1,3 @@
-// Auto-reload in dev.
-try {
-	require("electron-reloader")(module)
-} catch (_) {}
-
 import { app, BrowserWindow } from "electron"
 import * as path from "path"
 import * as sqlite from "./sqlite"
